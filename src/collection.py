@@ -9,15 +9,15 @@ NEWS_API_KEY = os.getenv("NEWS_API_KEY")
 
 def get_news(query: str, from_date: str, to_date: str) -> pd.DataFrame:
     """
-    Lấy tin tức tài chính từ NewsAPI.
+    Fetch financial news from NewsAPI.
     
     Args:
-        query: Từ khóa tìm kiếm (VD: "Walmart inflation")
-        from_date: Ngày bắt đầu (YYYY-MM-DD)
-        to_date: Ngày kết thúc (YYYY-MM-DD)
+        query: Search keyword (e.g. "Walmart inflation")
+        from_date: Start date (YYYY-MM-DD)
+        to_date: End date (YYYY-MM-DD)
     
     Returns:
-        DataFrame chứa các bài báo
+        DataFrame containing news articles
     """
     url = "https://newsapi.org/v2/everything"
     
@@ -34,7 +34,7 @@ def get_news(query: str, from_date: str, to_date: str) -> pd.DataFrame:
     data = response.json()
     
     if data["status"] != "ok":
-        print(f"Lỗi API: {data.get('message', 'Unknown error')}")
+        print(f"API Error: {data.get('message', 'Unknown error')}")
         return pd.DataFrame()
     
     articles = data["articles"]
@@ -53,17 +53,17 @@ if __name__ == "__main__":
     tickers = ["Walmart", "Target", "Costco"]
     
     for ticker in tickers:
-        print(f"\nLấy tin tức cho: {ticker}")
+        print(f"\nFetching news for: {ticker}")
         df = get_news(
             query=f"{ticker} inflation retail",
-            from_date="2026-04-06",
-            to_date="2026-05-06"
+            from_date="2026-04-07",
+            to_date="2026-05-07"
         )
         
         if not df.empty:
             os.makedirs("data/raw", exist_ok=True)
             filename = f"data/raw/news_{ticker.lower()}.csv"
             df.to_csv(filename, index=False)
-            print(f"Đã lưu {len(df)} bài báo vào {filename}")
+            print(f"Saved {len(df)} articles to {filename}")
         else:
-            print(f"Không có dữ liệu cho {ticker}")
+            print(f"No data available for {ticker}")
