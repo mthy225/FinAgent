@@ -53,17 +53,31 @@ if __name__ == "__main__":
     tickers = ["Walmart", "Target", "Costco"]
     
     for ticker in tickers:
+<<<<<<< HEAD
+        print(f"\nLấy tin tức cho: {ticker}")
+        df = get_news(
+            query=f"{ticker} inflation retail",
+            from_date="2026-04-06",
+            to_date="2026-05-06"
+=======
         print(f"\nFetching news for: {ticker}")
         df = get_news(
             query=f"{ticker} inflation retail",
             from_date="2026-04-07",
             to_date="2026-05-07"
+>>>>>>> 1e4b742ae590851c708635c5d2a48081cba4840a
         )
         
         if not df.empty:
             os.makedirs("data/raw", exist_ok=True)
             filename = f"data/raw/news_{ticker.lower()}.csv"
             df.to_csv(filename, index=False)
+<<<<<<< HEAD
+            print(f"Đã lưu {len(df)} bài báo vào {filename}")
+        else:
+            print(f"Không có dữ liệu cho {ticker}")
+=======
             print(f"Saved {len(df)} articles to {filename}")
         else:
             print(f"No data available for {ticker}")
+>>>>>>> 1e4b742ae590851c708635c5d2a48081cba4840a

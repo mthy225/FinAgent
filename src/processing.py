@@ -56,11 +56,6 @@ def clean_stock_data(filepath: str) -> pd.DataFrame:
     # Sort by date
     df = df.sort_values("Date").reset_index(drop=True)
     
-    # Feature engineering
-    df["Daily_Return"] = df["Close"].pct_change()
-    df["MA7"] = df["Close"].rolling(window=7).mean()
-    df["MA30"] = df["Close"].rolling(window=30).mean()
-    df["Volatility"] = df["Daily_Return"].rolling(window=30).std()
     
     print(f"After cleaning: {df.shape[0]} rows")
     return df
