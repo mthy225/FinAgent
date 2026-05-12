@@ -18,8 +18,8 @@ logger = logging.getLogger(__name__)
 # ─────────────────────────────────────────────
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-CLEANED_DIR = BASE_DIR / "data" / "cleaned"
-OUTPUT_DIR = BASE_DIR / "data" / "processed"
+CLEANED_DIR = BASE_DIR / "data_stocks" / "cleaned"
+OUTPUT_DIR = BASE_DIR / "data_stocks" / "processed"
 
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
