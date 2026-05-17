@@ -1,85 +1,64 @@
 import pandas as pd
-import json
+import numpy as np
 import os
+from pathlib import Path
+
+CLEANED_DIR = Path("data_stocks/cleaned")
+OUTPUT_DIR = Path("data/processed")
+TICKERS = ["WMT", "TGT", "COST"]
 
 
-def format_stock_summary(ticker: str) -> dict:
+def add_features(df: pd.DataFrame) -> pd.DataFrame:
     """
-    Read cleaned stock CSV and return summary statistics for LLM prompt.
+    Add financial indicators required by analysis.py.
     """
-    filepath = f"data_stocks/cleaned/{ticker}_cleaned.csv"
-    if not os.path.exists(filepath):
-        print(f"File not found: {filepath}")
-        return {}
+    df = df.sort_values("Date").reset_index(drop=True)
 
-    df = pd.read_csv(filepath)
-    df["Date"] = pd.to_datetime(df["Date"])
+    # Daily return
+    df["Daily_Return"] = df["Close"].pct_change()
 
-    return {
-        "ticker": ticker,
-        "period": f"{df['Date'].min().date()} to {df['Date'].max().date()}",
-        "latest_close": round(df["Close"].iloc[-1], 2),
-        "highest_close": round(df["Close"].max(), 2),
-        "lowest_close": round(df["Close"].min(), 2),
-        "avg_close": round(df["Close"].mean(), 2),
-        "price_change_pct": round(
-            (df["Close"].iloc[-1] - df["Close"].iloc[0])
-            / df["Close"].iloc[0] * 100, 2
-        ),
-        "recent_7_days": (
-            df[["Date", "Close", "Volume"]]
-            .tail(7)
-            .assign(Date=lambda x: x["Date"].dt.strftime("%Y-%m-%d"))
-            .to_dict(orient="records")
-        )
-    }
+    # Moving averages
+    df["MA7"] = df["Close"].rolling(window=7).mean()
+    df["MA30"] = df["Close"].rolling(window=30).mean()
+
+    # Volatility (30-day rolling std of daily return)
+    df["Volatility"] = df["Daily_Return"].rolling(window=30).std()
+
+    # Outlier flag: daily return > 3 std deviations
+    mean_ret = df["Daily_Return"].mean()
+    std_ret = df["Daily_Return"].std()
+    df["Outlier_Flag"] = (
+        (df["Daily_Return"] - mean_ret).abs() > 3 * std_ret
+    ).astype(int)
+
+    return df
 
 
-def format_news_summary(ticker_name: str) -> list:
+def prepare_processed_data():
     """
-    Read cleaned news CSV and return top headlines for LLM prompt.
+    Read cleaned stock CSVs, add features, save to data/processed/
+    for use by analysis.py (Member A).
     """
-    filepath = f"data/cleaned/news_{ticker_name}_cleaned.csv"
-    if not os.path.exists(filepath):
-        print(f"File not found: {filepath}")
-        return []
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-    df = pd.read_csv(filepath)
-    return df["title"].head(5).tolist()
+    for ticker in TICKERS:
+        input_path = CLEANED_DIR / f"{ticker}_cleaned.csv"
 
+        if not input_path.exists():
+            print(f"File not found: {input_path}")
+            continue
 
-def build_prompt_data() -> dict:
-    """
-    Combine stock and news data into structured format for LLM prompt.
-    """
-    stock_tickers = ["WMT", "TGT", "COST"]
-    news_tickers = ["walmart", "target", "costco"]
+        print(f"\nProcessing: {ticker}")
+        df = pd.read_csv(input_path)
+        df["Date"] = pd.to_datetime(df["Date"])
 
-    prompt_data = {
-        "topic": "Retail & Inflation Analysis",
-        "stocks": {},
-        "news": {}
-    }
+        df = add_features(df)
 
-    for ticker in stock_tickers:
-        prompt_data["stocks"][ticker] = format_stock_summary(ticker)
-
-    for ticker_name in news_tickers:
-        prompt_data["news"][ticker_name] = format_news_summary(ticker_name)
-
-    return prompt_data
+        output_path = OUTPUT_DIR / f"{ticker}_features.csv"
+        df.to_csv(output_path, index=False)
+        print(f"Saved to {output_path}")
+        print(f"Shape: {df.shape} | Columns: {list(df.columns)}")
 
 
 if __name__ == "__main__":
-    print("Building structured data for LLM prompt...")
-    data = build_prompt_data()
-
-    os.makedirs("data", exist_ok=True)
-    output_path = "data/prompt_input.json"
-
-    with open(output_path, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=2, ensure_ascii=False)
-
-    print(f"\nSaved to {output_path}")
-    print("\nPreview:")
-    print(json.dumps(data, indent=2, ensure_ascii=False)[:800])
+    prepare_processed_data()
