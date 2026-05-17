@@ -53,16 +53,22 @@ if __name__ == "__main__":
     tickers = ["Walmart", "Target", "Costco"]
     
     for ticker in tickers:
+        filename = f"data/raw/news_{ticker.lower()}.csv"
+        
+        # Skip if file already exists
+        if os.path.exists(filename):
+            print(f"Data already exists for {ticker}, skipping API call.")
+            continue
+        
         print(f"\nFetching news for: {ticker}")
         df = get_news(
             query=f"{ticker} inflation retail",
-            from_date="2026-04-07",
-            to_date="2026-05-07"
+            from_date="2026-04-16",
+            to_date="2026-05-16"
         )
         
         if not df.empty:
             os.makedirs("data/raw", exist_ok=True)
-            filename = f"data/raw/news_{ticker.lower()}.csv"
             df.to_csv(filename, index=False)
             print(f"Saved {len(df)} articles to {filename}")
         else:
