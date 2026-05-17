@@ -57,8 +57,8 @@ if __name__ == "__main__":
         print(f"\nFetching news for: {ticker}")
         df = get_news(
             query=f"{ticker} inflation retail",
-            from_date="2026-04-07",
-            to_date="2026-05-07"
+            from_date="2026-04-16",
+            to_date="2026-05-16"
         )
 
         if not df.empty:
