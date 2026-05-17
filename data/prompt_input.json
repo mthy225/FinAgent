@@ -1,0 +1,13 @@
+{
+  "topic": "Retail & Inflation Analysis",
+  "stocks": {
+    "WMT": {},
+    "TGT": {},
+    "COST": {}
+  },
+  "news": {
+    "walmart": [],
+    "target": [],
+    "costco": []
+  }
+}
