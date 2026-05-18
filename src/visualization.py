@@ -15,7 +15,7 @@ Usage:
     python visualization.py
 
 Input:
-    data_stocks/processed/{TICKER}_features.csv   (output of processing.py)
+    data/processed/{TICKER}_features.csv   (output of processing.py)
 
 Output:
     reports/figures/price_volume_{ticker}.png
@@ -47,8 +47,8 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # ── Paths ──────────────────────────────────────────────────────────────────────
-BASE_DIR   = Path(__file__).resolve().parent
-PROC_DIR   = BASE_DIR / "data_stocks" / "processed"
+BASE_DIR   = Path(__file__).resolve().parent.parent
+PROC_DIR   = BASE_DIR / "data" / "processed"
 FIG_DIR    = BASE_DIR / "reports" / "figures"
 REPORT_DIR = BASE_DIR / "reports"
 
