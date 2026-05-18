@@ -55,6 +55,12 @@ if __name__ == "__main__":
 
     for ticker in tickers:
         filename = f"data/raw/news_{ticker.lower()}.csv"
+        
+        # Skip if file already exists
+        if os.path.exists(filename):
+            print(f"Data already exists for {ticker}, skipping API call.")
+            continue
+        
 
         # Default start date if file doesn't exist
         from_date = "2026-04-16"
@@ -76,6 +82,8 @@ if __name__ == "__main__":
 
         new_df = get_news(
             query=f"{ticker} inflation retail",
+            from_date="2026-04-16",
+            to_date="2026-05-16"
             from_date=from_date,
             to_date=to_date
         )
@@ -95,6 +103,10 @@ if __name__ == "__main__":
                 combined_df = new_df
 
             os.makedirs("data/raw", exist_ok=True)
+            df.to_csv(filename, index=False)
+            print(f"Saved {len(df)} articles to {filename}")
+        else:
+            print(f"No data available for {ticker}")
 
             combined_df.to_csv(filename, index=False)
 
