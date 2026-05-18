@@ -1,0 +1,93 @@
+FinAgent AI Portfolio Advisor Report
+Generated : 2026-05-18 09:52:26
+Model     : groq/llama-3.3-70b-versatile
+============================================================
+
+### SECTION 1: STOCK PHASE DIAGNOSIS — "What is each stock actually doing right now?"
+
+Based on the combination of metrics, we can diagnose the current phase of each stock.
+
+For WMT, the current phase is Defensive Accumulation. The combination of a moderate 30-day return (5.7%), a high win rate (65.5%), and decreasing volatility (volatility_trend = "decreasing") suggests that institutional capital is quietly accumulating this stock. The price slope (0.2835) and MA gap (2.321%) also indicate a slow but reliable upward trend. This momentum is not explosive but is emotionally stable to hold.
+
+For TGT, the current phase is Post-Crash Recovery. The high 90-day return (32.11%) looks impressive, but it's essential to consider the historical max drawdown (-49.78%). This suggests that the current momentum is not entirely structural growth but rather a recovery bounce from a past crash. The MA gap (3.201%) signals institutional re-entry, which is explosive but fragile and could reverse sharply if sentiment shifts.
+
+For COST, the current phase is Mature Stable Trend. The combination of low volatility (1.0844%), a positive slope (0.5187), and a modest 30-day return (2.29%) indicates a steady compounder. This stock delivers steady returns without drama, making it a reliable but unexciting investment.
+
+### SECTION 2: RISK READING
+
+To estimate the 1-month worst-case loss, we use the provided metric: monthly_var_95. The formula has already been applied in the data, and we have the following values:
+- WMT: -0.096069
+- TGT: -0.167026
+- COST: -0.090251
+
+The estimated 1-month worst-case loss for each stock is calculated as:
+- WMT: -0.096069 × $10,000 = -$960.69
+- TGT: -0.167026 × $10,000 = -$1,670.26
+- COST: -0.090251 × $10,000 = -$902.51
+
+We also consider the std_daily_return and max_drawdown_pct to understand the risk profile of each stock.
+- WMT: std_daily_return = 1.4766, max_drawdown_pct = -21.93%
+- TGT: std_daily_return = 1.6061, max_drawdown_pct = -49.78%
+- COST: std_daily_return = 1.1178, max_drawdown_pct = -20.74%
+
+### SECTION 3: CONSISTENCY READING — "Steady grower or lucky gambler?"
+
+To evaluate consistency, we consider the combination of win_rate_pct, std_daily_return, and return_30d.
+- WIN RATE RANK (high to low): WMT (65.5%) > TGT (62.1%) > COST (60.0%)
+- STD DAILY RETURN RANK (low to high): COST (1.1178) < WMT (1.4766) < TGT (1.6061)
+- 30D RETURN RANK (high to low): TGT (11.88%) > WMT (5.7%) > COST (2.29%)
+
+Based on these rankings, WMT is the most consistent grower, followed by TGT, and then COST. WMT's high win rate and moderate return make it a reliable investment, while TGT's high return is offset by its higher volatility. COST is a steady compounder with low volatility but modest returns.
+
+### SECTION 4: CORRELATION — "Are you actually diversifying or just doubling down?"
+
+We interpret the correlation numbers as follows:
+- WMT vs TGT (0.2582): This low correlation suggests that these two stocks are relatively uncorrelated, providing some diversification benefits.
+- WMT vs COST (0.5625): This moderate correlation indicates that these two stocks tend to move together, but not perfectly, offering some diversification benefits.
+- TGT vs COST (0.1904): This low correlation suggests that these two stocks are relatively uncorrelated, providing some diversification benefits.
+
+If we hold all three stocks, we are not entirely diversified, as WMT and COST have a moderate correlation. However, the low correlations between WMT and TGT, and TGT and COST, suggest that holding all three stocks can provide some diversification benefits.
+
+### SECTION 5: MACRO SENSITIVITY — "Who survives when things get tough?"
+
+Connecting the stock behavior to the macro environment, we observe:
+- WMT is the most defensive stock, with a low max drawdown (-21.93%) and decreasing volatility, making it a good hedge against macro downturns.
+- TGT is the most cyclical stock, with a high max drawdown (-49.78%) and high return (32.11%), making it sensitive to consumer sentiment.
+- COST is a balanced stock, with a moderate max drawdown (-20.74%) and steady returns, making it a reliable investment in various macro environments.
+
+If CPI rises, WMT is likely to hold up best due to its defensive nature. If consumer spending weakens, TGT is likely to get hit hardest due to its cyclical nature.
+
+### SECTION 6: PORTFOLIO ROLE TABLE
+
+| Ticker | Phase | Portfolio Role | Risk Level | Key Insight (1 sentence, cite 2 numbers) |
+|--------|-------|----------------|------------|------------------------------------------|
+| WMT    | Defensive Accumulation | Defensive Hedge | Medium | WMT's high win rate (65.5%) and low max drawdown (-21.93%) make it a reliable defensive hedge. |
+| TGT    | Post-Crash Recovery | Growth Driver | High | TGT's high 90-day return (32.11%) and high MA gap (3.201%) make it a growth driver, but its high max drawdown (-49.78%) increases its risk. |
+| COST   | Mature Stable Trend | Balanced Core | Low | COST's low volatility (1.0844%) and moderate return (2.29%) make it a balanced core investment, providing steady returns with low risk. |
+
+These roles complement each other in a portfolio by providing a balance of defense, growth, and stability. WMT's defensive nature can offset TGT's high-risk growth, while COST's steady returns can provide a core foundation for the portfolio.
+
+### SECTION 7: ALLOCATION FOR 3 INVESTOR PROFILES ($10,000)
+
+**Profile A — Conservative**
+- Allocation: WMT 60% = $6,000, TGT 10% = $1,000, COST 30% = $3,000
+- Key metrics: max_drawdown_pct, win_rate_pct, volatility_trend, sharpe_ratio
+- Bull case: expected portfolio value = $10,000 + (0.6 × $6,000 × 5.7/100) + (0.1 × $1,000 × 11.88/100) + (0.3 × $3,000 × 2.29/100) = $10,000 + $342 + $118.8 + $68.7 = $10,529.5
+- Bear case: expected portfolio value = $10,000 + (-0.096069 × $6,000) + (-0.167026 × $1,000) + (-0.090251 × $3,000) = $10,000 - $576.41 - $167.03 - $270.75 = $9,986.21
+- One-line verdict: This allocation prioritizes capital preservation and sleep-at-night comfort, with a focus on WMT's defensive nature and COST's steady returns.
+
+**Profile B — Balanced**
+- Allocation: WMT 40% = $4,000, TGT 30% = $3,000, COST 30% = $3,000
+- Key metrics: return_30d, sharpe_ratio, correlation
+- Bull case: expected portfolio value = $10,000 + (0.4 × $4,000 × 5.7/100) + (0.3 × $3,000 × 11.88/100) + (0.3 × $3,000 × 2.29/100) = $10,000 + $228 + $356.4 + $68.7 = $10,652.9
+- Bear case: expected portfolio value = $10,000 + (-0.096069 × $4,000) + (-0.167026 × $3,000) + (-0.090251 × $3,000) = $10,000 - $384.28 - $501.78 - $270.75 = $9,843.19
+- One-line verdict: This allocation balances growth and stability, with a mix of WMT's defense, TGT's growth, and COST's steady returns.
+
+**Profile C — Aggressive**
+- Allocation: WMT 10% = $1,000, TGT 60% = $6,000, COST 30% = $3,000
+- Key metrics: return_7d, return_90d, ma_gap_pct, stock_phase
+- Bull case: expected portfolio value = $10,000 + (0.1 × $1,000 × 5.7/100) + (0.6 × $6,000 × 11.88/100) + (0.3 × $3,000 × 2.29/100) = $10,000 + $57 + $714.8 + $68.7 = $10,840.5
+- Bear case: expected portfolio value = $10,000 + (-0.096069 × $1,000) + (-0.167026 × $6,000) + (-0.090251 × $3,000) = $10,000 - $96.07 - $1,002.16 - $270.75 = $9,631.09
+- One-line verdict: This allocation prioritizes maximum return, with a focus on TGT's high-growth potential, but accepts higher risk and potential drawdowns.
+
+The single most important risk each profile must accept is the potential for significant losses in the event of a market downturn, particularly for Profile C, which has a high allocation to TGT, a stock with a high max drawdown.
