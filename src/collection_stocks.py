@@ -1,20 +1,3 @@
-"""
-collection.py
-=============
-Phase 2 - Data Collection Module (Lead: Member A)
-
-Collects stock price data for WMT, TGT, COST from yfinance
-and macro indicator (CPI) from FRED API (free, no key required via pandas-datareader).
-
-Usage:
-    python collection.py
-
-Output:
-    data/raw/stock_prices_{ticker}.csv   - OHLCV daily data per ticker
-    data/raw/stock_prices_combined.csv   - All tickers merged
-    data/raw/collection_log.txt          - Run log
-"""
-
 import os
 import time
 import logging
