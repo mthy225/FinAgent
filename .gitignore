@@ -216,3 +216,18 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+# ==========================================
+# FINAGENT CUSTOM RULES
+# ==========================================
+
+# System files (Mac specific)
+.DS_Store
+
+# Ignore raw data files and dynamic datasets
+data/
+data_news/
+data_stocks/
+
+# Ignore generated analysis and reports
+reports/structured_summary.json
+reports/figures/

@@ -1,0 +1,28 @@
+import subprocess
+import sys
+
+def run_script(script_path):
+    print(f"\n======== Running: {script_path} ========")
+    result = subprocess.run([sys.executable, script_path], capture_output=False)
+    if result.returncode != 0:
+        print(f"❌ CRITICAL ERROR in {script_path}. Pipeline stopped.")
+        sys.exit(1)
+    print(f"✅ {script_path} completed successfully.")
+
+if __name__ == "__main__":
+    print("Starting End-to-End Pipeline Test for FinAgent...")
+    
+    # Thứ tự chạy các module từ đầu đến cuối
+    pipeline = [
+        "src/collection_news.py",
+        # "src/processing.py",  # Bỏ comment nếu bạn có file này
+        "src/visualization.py",
+        "src/analysis.py"
+    ]
+    
+    for script in pipeline:
+        run_script(script)
+        
+    print("\n============================================================")
+    print("🎉 SUCCESS: All modules executed end-to-end without errors!")
+    print("============================================================")

@@ -1,31 +1,15 @@
-"""
-analysis.py
-===========
-Phase 4 - AI Portfolio Advisor Module (Lead: Member A - Hân)
-
-Level: Investment Intelligence — reads stock BEHAVIOR, not just metrics.
-
-Uses Groq (primary) + Gemini (fallback).
-
-Usage:
-    python analysis.py
-
-Output:
-    data/analysis/ai_analysis_report.txt
-    data/analysis/ai_analysis_report.json
-"""
-
 import os
 import json
 import logging
 from pathlib import Path
 from datetime import datetime
+import math
 
 import pandas as pd
 import numpy as np
 from dotenv import load_dotenv
 from groq import Groq
-import google.generativeai as genai
+from google import genai  # UPDATED: Switched to the modern Google GenAI SDK
 
 # ── Load API keys ──────────────────────────────────────────────────────────────
 load_dotenv()
@@ -47,7 +31,8 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 TICKERS       = ["WMT", "TGT", "COST"]
-PROCESSED_DIR = Path("data/processed")
+# FIXED: Updated directory path from "data/processed" to "data_stocks/processed"
+PROCESSED_DIR = Path("data_stocks") / "processed"
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -57,7 +42,7 @@ PROCESSED_DIR = Path("data/processed")
 def load_processed_data(ticker: str) -> pd.DataFrame:
     path = PROCESSED_DIR / f"{ticker}_features.csv"
     if not path.exists():
-        raise FileNotFoundError(f"Không tìm thấy file: {path}")
+        raise FileNotFoundError(f"File not found: {path}")
     df = pd.read_csv(path, parse_dates=["Date"])
     return df.sort_values("Date").reset_index(drop=True)
 
@@ -88,7 +73,7 @@ def summarize_ticker(df: pd.DataFrame, ticker: str) -> dict:
     y = recent_30["Close"].values
     slope = round(float(np.polyfit(x, y, 1)[0]), 4)
 
-    # === RISK METRICS FOR VaR (NEW) ===
+    # === RISK METRICS FOR VaR ===
     daily_returns = df["Close"].pct_change().dropna()
 
     avg_daily_return = daily_returns.mean()
@@ -133,7 +118,7 @@ def summarize_ticker(df: pd.DataFrame, ticker: str) -> dict:
     max_row = recent_30.loc[recent_30["Daily_Return"].idxmax()]
     min_row = recent_30.loc[recent_30["Daily_Return"].idxmin()]
 
-    # ── Phase classification (Python-side, không để AI tự suy) ───────────────
+    # ── Phase classification (Python-side) ───────────────────────────────────
     phase, phase_reason = classify_phase(
         ret_7d, ret_30d, ret_90d,
         ma_gap_pct, slope,
@@ -194,10 +179,7 @@ def summarize_ticker(df: pd.DataFrame, ticker: str) -> dict:
 
 # ══════════════════════════════════════════════════════════════════════════════
 # PYTHON-SIDE CLASSIFIERS
-# (tính trước để AI không bị trống Section 6)
 # ══════════════════════════════════════════════════════════════════════════════
-
-import math
 
 def compute_monthly_var(avg_daily_return_pct, std_daily_return_pct, investment=10000):
     mu = avg_daily_return_pct / 100
@@ -207,18 +189,9 @@ def compute_monthly_var(avg_daily_return_pct, std_daily_return_pct, investment=1
     monthly_loss = var_month * investment
     return round(monthly_loss, 2)
 
+
 def classify_phase(ret_7d, ret_30d, ret_90d, ma_gap_pct, slope,
                    max_drawdown, avg_vol, vol_trend, win_rate, sharpe) -> tuple[str, str]:
-    """
-    Đọc phase cổ phiếu từ tổ hợp metrics — không đọc từng cái riêng lẻ.
-
-    Logic:
-    - Post-crash recovery: 90d cao + drawdown rất sâu + ma_gap lớn (institutional re-entry)
-    - Defensive accumulation: drawdown thấp + vol giảm + winrate cao + return đều
-    - Mature/stable trend: slope tốt + vol thấp + return đều nhưng không explosive
-    - Breakout momentum: cả 7d/30d/90d đều tăng đều + ma_gap lớn + slope dốc
-    """
-    # Post-crash recovery: 90d rất cao + drawdown sâu (> -35%) + ma_gap lớn
     if ret_90d and ret_90d > 25 and max_drawdown < -35 and ma_gap_pct > 2:
         return (
             "Post-Crash Recovery",
@@ -227,7 +200,6 @@ def classify_phase(ret_7d, ret_30d, ret_90d, ma_gap_pct, slope,
             f"MA gap {ma_gap_pct}% signals institutional re-entry, not organic growth."
         )
 
-    # Defensive accumulation: vol giảm + winrate cao + drawdown nhỏ + return ổn định
     if vol_trend == "decreasing" and win_rate >= 60 and max_drawdown > -25 and sharpe > 0.1:
         return (
             "Defensive Accumulation",
@@ -236,7 +208,6 @@ def classify_phase(ret_7d, ret_30d, ret_90d, ma_gap_pct, slope,
             f"This stock moves slowly but reliably upward."
         )
 
-    # Mature stable trend: slope tốt + vol thấp + return không explosive
     if avg_vol < 1.3 and slope > 0 and ret_30d and ret_30d < 8:
         return (
             "Mature Stable Trend",
@@ -245,7 +216,6 @@ def classify_phase(ret_7d, ret_30d, ret_90d, ma_gap_pct, slope,
             f"Reliable but unlikely to deliver explosive gains."
         )
 
-    # Breakout momentum: 7d/30d/90d tất cả tăng đều + slope tốt
     if ret_7d and ret_30d and ret_90d and ret_7d > 0 and ret_30d > 5 and ma_gap_pct > 1.5:
         return (
             "Breakout Momentum",
@@ -263,11 +233,6 @@ def classify_phase(ret_7d, ret_30d, ret_90d, ma_gap_pct, slope,
 
 def classify_risk(avg_vol: float, max_drawdown: float,
                   sharpe: float, vol_trend: str) -> str:
-    """
-    Risk level dựa trên HIỆN TẠI, không chỉ quá khứ.
-    vol_trend giảm + sharpe tốt = risk hiện tại thấp hơn drawdown lịch sử cho thấy.
-    """
-    # Nếu vol đang giảm + sharpe tốt → risk hiện tại thấp hơn quá khứ
     if vol_trend == "decreasing" and sharpe > 0.15 and avg_vol < 1.5:
         return "Medium (improving — past drawdown overstates current risk)"
     if avg_vol > 1.6 or max_drawdown < -40:
@@ -279,10 +244,6 @@ def classify_risk(avg_vol: float, max_drawdown: float,
 
 def classify_role(ret_90d, ma_gap_pct, avg_vol, max_drawdown,
                   win_rate, sharpe, slope) -> tuple[str, str]:
-    """
-    Portfolio role dựa trên tổ hợp metrics.
-    """
-    # Growth Driver: momentum mạnh + return cao + chấp nhận risk cao hơn
     if ret_90d and ret_90d > 25 and ma_gap_pct > 2.5:
         return (
             "Growth Driver",
@@ -290,7 +251,6 @@ def classify_role(ret_90d, ma_gap_pct, avg_vol, max_drawdown,
             f"make this the portfolio's return engine — but accept higher volatility."
         )
 
-    # Defensive Hedge: drawdown thấp + vol thấp + win rate cao
     if max_drawdown > -25 and avg_vol < 1.6 and win_rate >= 63:
         return (
             "Defensive Hedge",
@@ -298,7 +258,6 @@ def classify_role(ret_90d, ma_gap_pct, avg_vol, max_drawdown,
             f"and declining volatility make this the portfolio's shock absorber."
         )
 
-    # Balanced Core: không extreme ở chiều nào
     return (
         "Balanced Core",
         f"Moderate on all dimensions — slope {slope}, avg vol {avg_vol}%, "
@@ -326,14 +285,13 @@ def compute_correlations(dfs: dict) -> dict:
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# PROMPT — Investment Intelligence Level
+# PROMPT DEFINITION
 # ══════════════════════════════════════════════════════════════════════════════
 
 def build_prompt(summaries: list, correlations: dict, rankings_block: str) -> str:
     data_block = json.dumps(summaries, indent=2)
     corr_block = json.dumps(correlations, indent=2)
 
-    # Extract pre-classified info for Section 6
     roles_block = "\n".join([
         f"- {s['ticker']}: Phase = {s['stock_phase']} | Role = {s['portfolio_role']} | Risk = {s['risk_level']}"
         for s in summaries
@@ -392,16 +350,11 @@ For each ticker, read its BEHAVIOR by combining multiple metrics:
 Example of the level required:
 > "TGT is not simply strong — it is in a post-collapse recovery phase. The 32.11% 90-day return looks impressive until you see the -49.78% max drawdown. Institutions are re-entering after a historic collapse. This momentum is explosive but fragile — emotionally hard to hold, and could reverse sharply if sentiment shifts."
 
-> "WMT shows a completely different character. Moderate returns, high win rate, and shrinking volatility signal defensive accumulation. This is where institutional capital hides during uncertainty — slow, boring, but remarkably reliable."
-
-> "COST is the definition of a mature compounder. Low volatility, consistent slope, but weaker MA gap means it delivers steady returns without drama. You won't get rich quick, but you'll sleep well."
-
 ---
 
 SECTION 2 — RISK READING (STRICT INSTRUCTION)
 
 You MUST NOT estimate 1-month loss using "worst day × 22".
-
 You MUST use the provided metric: monthly_var_95.
 
 Formula already applied in data:
@@ -415,8 +368,6 @@ Explain risk using:
 - std_daily_return
 - max_drawdown_pct
 - monthly_var_95
-
-Do not invent any other loss formula.
 
 ---
 
@@ -434,20 +385,19 @@ For each ticker:
 - Which ticker gives you the best "sleep quality" as an investor? (high win rate + low std)
 - Which ticker is a high-variance gamble? (high return potential but wide daily swings)
 - Rank: most consistent grower → least consistent
-From a pure consistency standpoint (std_daily_return + win), the correct order is:
+
 ---
 
 ### SECTION 4: CORRELATION — "Are you actually diversifying or just doubling down?"
 
 For each pair, interpret the correlation number meaningfully:
-- WMT vs TGT ({correlations.get('WMT_vs_TGT', 'N/A')}): what does this mean practically?
-- WMT vs COST ({correlations.get('WMT_vs_COST', 'N/A')}): what does this mean practically?
-- TGT vs COST ({correlations.get('TGT_vs_COST', 'N/A')}): what does this mean practically?
+- WMT vs TGT ({correlations.get('WMT_vs_TGT', 'N/A')})
+- WMT vs COST ({correlations.get('WMT_vs_COST', 'N/A')})
+- TGT vs COST ({correlations.get('TGT_vs_COST', 'N/A')})
 
 Then answer:
 - If you hold all 3, are you truly diversified or are some positions redundant?
 - Which pair gives the MOST diversification benefit (lowest correlation)?
-- Portfolio construction implication: does the correlation pattern suggest concentrating or spreading?
 
 ---
 
@@ -457,8 +407,6 @@ Connect the stock behavior to the macro environment:
 - These are retail stocks — they are sensitive to inflation (CPI), consumer spending, and interest rates
 - Based on volatility pattern and drawdown history, which ticker is most DEFENSIVE when macro deteriorates?
 - Which ticker is most CYCLICAL — moves sharply with consumer sentiment?
-- If CPI rises → which ticker holds up best and why?
-- If consumer spending weakens → which ticker gets hit hardest and why?
 - Assign macro label: Defensive / Balanced / Cyclical — with specific number justification
 
 ---
@@ -481,7 +429,7 @@ SECTION 7 — STRICT NUMERIC RULES (MANDATORY)
 
 You are given for each ticker:
 - return_30d (in %)
-- monthly_var_95 (in decimal, e.g. -0.096069)
+- monthly_var_95 (in decimal)
 
 Bull case portfolio value MUST be calculated as:
 $10,000 + sum(weight_i × capital × (return_30d_i / 100))
@@ -490,55 +438,28 @@ Bear case portfolio value MUST be calculated as:
 $10,000 + SUM( weight_i × monthly_var_95_i × 10000 )
 
 You MUST show the math.
-You are NOT allowed to assume, estimate, or invent any percentage.
-
-IMPORTANT:
-return_30d_pct is in PERCENT form (e.g. 5.7 means 5.7%).
-You MUST divide by 100 when multiplying with money.
 
 ### SECTION 7: ALLOCATION FOR 3 INVESTOR PROFILES ($10,000)
 
-For each profile, give exact allocation with full reasoning rooted in the data:
-
 **Profile A — Conservative**
-- Priority: capital preservation, sleep at night
-- Allocation: WMT ?% = $?, TGT ?% = $?, COST ?% = $? (must sum to $10,000)
-- Key metrics driving this: max_drawdown_pct, win_rate_pct, volatility_trend, sharpe_ratio
-- Bull case (trend continues 30 more days): expected portfolio value = $?
-- Bear case (max drawdown repeats): expected portfolio value = $?
-- One-line verdict: why THIS allocation for THIS profile
+- Allocation: WMT ?% = $?, TGT ?% = $?, COST ?% = $?
+- Bull case: expected portfolio value = $?
+- Bear case: expected portfolio value = $?
+- One-line verdict
 
 **Profile B — Balanced**
-- Priority: growth + stability, moderate risk
 - Allocation: WMT ?% = $?, TGT ?% = $?, COST ?% = $?
-- Key metrics: return_30d, sharpe_ratio, correlation (use actual numbers)
 - Bull case: expected portfolio value = $?
 - Bear case: expected portfolio value = $?
 - One-line verdict
 
 **Profile C — Aggressive**
-- Priority: maximum return, willing to accept drawdowns
 - Allocation: WMT ?% = $?, TGT ?% = $?, COST ?% = $?
-- Key metrics: return_7d, return_90d, ma_gap_pct, stock_phase
 - Bull case: expected portfolio value = $?
 - Bear case: expected portfolio value = $?
 - One-line verdict
 
-For Bull/Bear case projections, you MUST derive numbers from:
-- return_30d for bull case
-- monthly_var_95 for bear case
-
 End Section 7 with: "The single most important risk each profile must accept."
-
----
-
-## RULES — NON-NEGOTIABLE:
-1. NEVER write a sentence that only describes a number without interpreting what it MEANS for the investor
-2. NEVER rank without saying WHY the ranking exists in plain English
-3. ALWAYS cross-reference at least 2 metrics when making any claim
-4. Section 6 table MUST be fully filled — no empty cells, no "?" left
-5. All dollar amounts in Section 7 must be calculated, not estimated vaguely
-6. Write like a human expert who cares about the investor's money, not like a report generator
 """
     return prompt
 
@@ -561,9 +482,12 @@ def call_groq(prompt: str) -> str:
 
 def call_gemini(prompt: str) -> str:
     logger.info("Calling Gemini API (fallback)...")
-    genai.configure(api_key=GEMINI_API_KEY)
-    model = genai.GenerativeModel("gemini-1.5-flash")
-    response = model.generate_content(prompt)
+    # UPDATED: Implemented the new google-genai SDK architecture
+    client = genai.Client(api_key=GEMINI_API_KEY)
+    response = client.models.generate_content(
+        model="gemini-2.5-flash",
+        contents=prompt
+    )
     return response.text
 
 
@@ -577,13 +501,13 @@ def call_llm(prompt: str) -> tuple[str, str]:
         try:
             result = call_gemini(prompt)
             logger.info("✓ Gemini API success")
-            return result, "gemini/gemini-1.5-flash"
+            return result, "gemini/gemini-2.5-flash"
         except Exception as e2:
             raise RuntimeError(f"Both APIs failed. Groq: {e} | Gemini: {e2}")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# SAVE
+# REPORT STORAGE
 # ══════════════════════════════════════════════════════════════════════════════
 
 def save_report(analysis: str, summaries: list, correlations: dict, model_used: str) -> None:
@@ -611,7 +535,7 @@ def save_report(analysis: str, summaries: list, correlations: dict, model_used: 
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# MAIN
+# MAIN ORCHESTRATION PIPELINE
 # ══════════════════════════════════════════════════════════════════════════════
 
 def run_analysis(tickers: list = TICKERS) -> str:
@@ -645,32 +569,12 @@ def run_analysis(tickers: list = TICKERS) -> str:
         except Exception as e:
             logger.error(f"✗ summarize {ticker}: {e}")
 
-    # =========================
     # Ranking helpers
-    # =========================
-
     def rank_desc(metric):
-        return sorted(
-            summaries,
-            key=lambda x: x.get(metric, float("-inf")),
-            reverse=True
-        )
+        return sorted(summaries, key=lambda x: x.get(metric, float("-inf")), reverse=True)
 
     def rank_asc(metric):
-        return sorted(
-            summaries,
-            key=lambda x: x.get(metric, float("inf"))
-        )
-
-    def portfolio_bear_case(allocation_dict):
-        total = 10000
-        loss = 0
-
-        for ticker, weight in allocation_dict.items():
-            stock = next(x for x in summaries if x["ticker"] == ticker)
-            loss += total * weight * stock["monthly_var_95"]
-
-        return round(total + loss, 2)
+        return sorted(summaries, key=lambda x: x.get(metric, float("inf")))
 
     win_rate_rank = " > ".join(
         [f"{x['ticker']} ({x['win_rate_pct']}%)" for x in rank_desc("win_rate_pct")]
@@ -694,6 +598,7 @@ def run_analysis(tickers: list = TICKERS) -> str:
     30D RETURN RANK (high to low):
     {return_rank}
     """
+    
     # Correlations
     correlations = {}
     try:
@@ -706,11 +611,11 @@ def run_analysis(tickers: list = TICKERS) -> str:
     prompt = build_prompt(summaries, correlations, rankings_block)
     logger.info(f"Prompt: {len(prompt)} chars")
 
-    # LLM
+    # LLM Inference
     analysis, model_used = call_llm(prompt)
     logger.info(f"Analysis: {len(analysis)} chars")
 
-    # Save
+    # Save outputs
     save_report(analysis, summaries, correlations, model_used)
     logger.info("Done!\n")
 
