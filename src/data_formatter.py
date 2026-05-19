@@ -3,9 +3,10 @@ import numpy as np
 import os
 from pathlib import Path
 
+# ── Project Directories (FIXED: Targeted correctly to data_stocks) ──────────────
 CLEANED_DIR = Path("data_stocks/cleaned")
-OUTPUT_DIR = Path("data_news/processed")
-TICKERS = ["WMT", "TGT", "COST"]
+OUTPUT_DIR  = Path("data_stocks/processed")  # FIXED: Changed from data_news to data_stocks
+TICKERS     = ["WMT", "TGT", "COST"]
 
 
 def add_features(df: pd.DataFrame) -> pd.DataFrame:
@@ -36,8 +37,8 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
 
 def prepare_processed_data():
     """
-    Read cleaned stock CSVs, add features, save to data/processed/
-    for use by analysis.py (Member A).
+    Read cleaned stock CSVs, add features, save to data_stocks/processed/
+    for use by analysis.py.
     """
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 

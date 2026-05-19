@@ -9,6 +9,7 @@ import pandas as pd
 import yfinance as yf
 
 # ── Logging Setup ──────────────────────────────────────────────────────────────
+# TARGETED: Explicitly isolated to data_stocks/raw
 RAW_DIR = Path("data_stocks/raw")
 RAW_DIR.mkdir(parents=True, exist_ok=True)
 

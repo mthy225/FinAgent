@@ -124,3 +124,23 @@
 2026-05-19 21:24:09,569 [INFO] Saved JSON → analysis/ai_analysis_report.json
 2026-05-19 21:24:09,569 [INFO] Done!
 
+2026-05-19 22:07:59,112 [INFO] ============================================================
+2026-05-19 22:07:59,112 [INFO] FinAgent — AI Portfolio Advisor (Investment Intelligence)
+2026-05-19 22:07:59,112 [INFO] Tickers: ['WMT', 'TGT', 'COST']
+2026-05-19 22:07:59,112 [INFO] ============================================================
+2026-05-19 22:07:59,115 [INFO] ✓ Loaded WMT
+2026-05-19 22:07:59,117 [INFO] ✓ Loaded TGT
+2026-05-19 22:07:59,119 [INFO] ✓ Loaded COST
+2026-05-19 22:07:59,121 [INFO] ✓ WMT: phase=Defensive Accumulation | role=Balanced Core | risk=Medium
+2026-05-19 22:07:59,122 [INFO] ✓ TGT: phase=Consolidation / Unclear Trend | role=Balanced Core | risk=High
+2026-05-19 22:07:59,123 [INFO] ✓ COST: phase=Mature Stable Trend | role=Balanced Core | risk=Medium (improving — past drawdown overstates current risk)
+2026-05-19 22:07:59,125 [INFO] ✓ Correlations: {'WMT_vs_TGT': 0.2686, 'WMT_vs_COST': 0.5628, 'TGT_vs_COST': 0.1948}
+2026-05-19 22:07:59,125 [INFO] Prompt: 10713 chars
+2026-05-19 22:07:59,125 [INFO] Calling Groq API...
+2026-05-19 22:08:05,759 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-19 22:08:05,775 [INFO] ✓ Groq API success
+2026-05-19 22:08:05,776 [INFO] Analysis: 6775 chars
+2026-05-19 22:08:05,776 [INFO] Saved TXT → analysis/ai_analysis_report.txt
+2026-05-19 22:08:05,777 [INFO] Saved JSON → analysis/ai_analysis_report.json
+2026-05-19 22:08:05,777 [INFO] Done!
+
