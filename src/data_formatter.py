@@ -4,7 +4,7 @@ import os
 from pathlib import Path
 
 CLEANED_DIR = Path("data_stocks/cleaned")
-OUTPUT_DIR = Path("data/processed")
+OUTPUT_DIR = Path("data_news/processed")
 TICKERS = ["WMT", "TGT", "COST"]
 
 

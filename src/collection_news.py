@@ -63,7 +63,7 @@ if __name__ == "__main__":
 
     for ticker in tickers:
         
-        # UPDATED: Changed path from 'data/raw' to 'data_news/raw'
+        # UPDATED:'data_news/raw'
         filename = f"data_news/raw/news_{ticker.lower()}.csv"
 
         old_df = pd.DataFrame()
@@ -144,7 +144,7 @@ if __name__ == "__main__":
             else:
                 combined_df = new_df
 
-            # UPDATED: Creates 'data_news/raw' directory instead of 'data/raw'
+            # UPDATED: Creates 'data_news/raw' directory
             os.makedirs("data_news/raw", exist_ok=True)
 
             combined_df.to_csv(filename, index=False)

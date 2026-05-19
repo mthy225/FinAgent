@@ -9,7 +9,7 @@ import pandas as pd
 import yfinance as yf
 
 # ── Logging Setup ──────────────────────────────────────────────────────────────
-RAW_DIR = Path("data/raw")
+RAW_DIR = Path("data_stocks/raw")
 RAW_DIR.mkdir(parents=True, exist_ok=True)
 
 log_path = RAW_DIR / "collection_log.txt"

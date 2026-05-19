@@ -71,7 +71,7 @@ def save_temp_csv(df, path):
 class TestCleanStockData(unittest.TestCase):
 
     def setUp(self):
-        self.tmp_path = "data/test_tmp/stock_test.csv"
+        self.tmp_path = "data_stocks/test_tmp/stock_test.csv"
 
     def tearDown(self):
         if os.path.exists(self.tmp_path):
@@ -123,7 +123,7 @@ class TestCleanStockData(unittest.TestCase):
 class TestCleanNewsData(unittest.TestCase):
 
     def setUp(self):
-        self.tmp_path = "data/test_tmp/news_test.csv"
+        self.tmp_path = "data_news/test_tmp/news_test.csv"
 
     def tearDown(self):
         if os.path.exists(self.tmp_path):
