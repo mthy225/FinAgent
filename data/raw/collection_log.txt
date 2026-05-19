@@ -1,0 +1,26 @@
+2026-05-19 19:53:23,007 [INFO] =======================================================
+2026-05-19 19:53:23,007 [INFO] FinAgent — Data Collection Module Starting
+2026-05-19 19:53:23,007 [INFO] Tickers : ['WMT', 'TGT', 'COST']
+2026-05-19 19:53:23,007 [INFO] Period  : 2023-05-20 → 2026-05-19
+2026-05-19 19:53:23,007 [INFO] Output  : /Users/maithy/Desktop/FinAgent/data/raw
+2026-05-19 19:53:23,008 [INFO] =======================================================
+2026-05-19 19:53:23,008 [INFO] Fetching WMT | 2023-05-20 → 2026-05-19
+2026-05-19 19:53:24,089 [INFO]   ✓ WMT: 750 rows | 0 null Close values
+2026-05-19 19:53:24,089 [INFO] Fetching TGT | 2023-05-20 → 2026-05-19
+2026-05-19 19:53:24,476 [INFO]   ✓ TGT: 750 rows | 0 null Close values
+2026-05-19 19:53:24,476 [INFO] Fetching COST | 2023-05-20 → 2026-05-19
+2026-05-19 19:53:24,886 [INFO]   ✓ COST: 750 rows | 0 null Close values
+2026-05-19 19:53:24,890 [INFO] Saved → data/raw/stock_prices_WMT.csv
+2026-05-19 19:53:24,892 [INFO] Saved → data/raw/stock_prices_TGT.csv
+2026-05-19 19:53:24,895 [INFO] Saved → data/raw/stock_prices_COST.csv
+2026-05-19 19:53:24,903 [INFO] Saved combined → data/raw/stock_prices_combined.csv
+2026-05-19 19:53:24,903 [INFO] 
+=======================================================
+2026-05-19 19:53:24,903 [INFO] Ticker     Rows        Start          End Null Close
+2026-05-19 19:53:24,903 [INFO] -------------------------------------------------------
+2026-05-19 19:53:24,903 [INFO] WMT         750   2023-05-22   2026-05-18          0
+2026-05-19 19:53:24,903 [INFO] TGT         750   2023-05-22   2026-05-18          0
+2026-05-19 19:53:24,903 [INFO] COST        750   2023-05-22   2026-05-18          0
+2026-05-19 19:53:24,903 [INFO] =======================================================
+2026-05-19 19:53:24,903 [INFO] Collection complete.
+

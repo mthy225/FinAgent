@@ -222,25 +222,3 @@ __marimo__/
 
 # macOS system files
 .DS_Store
-
-# ==========================================
-# Ignore generated data files
-# ==========================================
-
-# Ignore all files inside data folders
-data/**
-data_news/**
-data_stocks/**
-
-# Ignore generated reports and figures
-reports/figures/**
-reports/structured_summary.json
-
-# ==========================================
-# Keep folder structure with .gitkeep
-# ==========================================
-
-# Allow Git to track .gitkeep files
-!**/data_news/**/.gitkeep
-!**/data_stocks/**/.gitkeep
-!**/reports/figures/.gitkeep

@@ -1,0 +1,67 @@
+2026-05-19 20:11:06,613 [INFO] ============================================================
+2026-05-19 20:11:06,613 [INFO] FinAgent — AI Portfolio Advisor (Investment Intelligence)
+2026-05-19 20:11:06,613 [INFO] Tickers: ['WMT', 'TGT', 'COST']
+2026-05-19 20:11:06,613 [INFO] ============================================================
+2026-05-19 20:11:06,613 [ERROR] ✗ WMT: Không tìm thấy file: data/processed/WMT_features.csv
+2026-05-19 20:11:06,613 [ERROR] ✗ TGT: Không tìm thấy file: data/processed/TGT_features.csv
+2026-05-19 20:11:06,613 [ERROR] ✗ COST: Không tìm thấy file: data/processed/COST_features.csv
+2026-05-19 20:14:12,821 [INFO] ============================================================
+2026-05-19 20:14:12,821 [INFO] FinAgent — AI Portfolio Advisor (Investment Intelligence)
+2026-05-19 20:14:12,821 [INFO] Tickers: ['WMT', 'TGT', 'COST']
+2026-05-19 20:14:12,821 [INFO] ============================================================
+2026-05-19 20:14:12,831 [INFO] ✓ Loaded WMT
+2026-05-19 20:14:12,834 [INFO] ✓ Loaded TGT
+2026-05-19 20:14:12,835 [INFO] ✓ Loaded COST
+2026-05-19 20:14:12,839 [INFO] ✓ WMT: phase=Defensive Accumulation | role=Defensive Hedge | risk=Medium
+2026-05-19 20:14:12,841 [INFO] ✓ TGT: phase=Post-Crash Recovery | role=Growth Driver | risk=High
+2026-05-19 20:14:12,842 [INFO] ✓ COST: phase=Mature Stable Trend | role=Balanced Core | risk=Low
+2026-05-19 20:14:12,845 [INFO] ✓ Correlations: {'WMT_vs_TGT': 0.2582, 'WMT_vs_COST': 0.5625, 'TGT_vs_COST': 0.1904}
+2026-05-19 20:14:12,845 [INFO] Prompt: 10631 chars
+2026-05-19 20:14:12,845 [INFO] Calling Groq API...
+2026-05-19 20:14:18,129 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-19 20:14:18,136 [INFO] ✓ Groq API success
+2026-05-19 20:14:18,136 [INFO] Analysis: 5621 chars
+2026-05-19 20:14:18,137 [INFO] Saved TXT → data/analysis/ai_analysis_report.txt
+2026-05-19 20:14:18,137 [INFO] Saved JSON → data/analysis/ai_analysis_report.json
+2026-05-19 20:14:18,138 [INFO] Done!
+
+2026-05-19 20:15:38,151 [INFO] ============================================================
+2026-05-19 20:15:38,151 [INFO] FinAgent — AI Portfolio Advisor (Investment Intelligence)
+2026-05-19 20:15:38,151 [INFO] Tickers: ['WMT', 'TGT', 'COST']
+2026-05-19 20:15:38,151 [INFO] ============================================================
+2026-05-19 20:15:38,154 [INFO] ✓ Loaded WMT
+2026-05-19 20:15:38,155 [INFO] ✓ Loaded TGT
+2026-05-19 20:15:38,157 [INFO] ✓ Loaded COST
+2026-05-19 20:15:38,159 [INFO] ✓ WMT: phase=Defensive Accumulation | role=Defensive Hedge | risk=Medium
+2026-05-19 20:15:38,161 [INFO] ✓ TGT: phase=Post-Crash Recovery | role=Growth Driver | risk=High
+2026-05-19 20:15:38,162 [INFO] ✓ COST: phase=Mature Stable Trend | role=Balanced Core | risk=Low
+2026-05-19 20:15:38,163 [INFO] ✓ Correlations: {'WMT_vs_TGT': 0.2582, 'WMT_vs_COST': 0.5625, 'TGT_vs_COST': 0.1904}
+2026-05-19 20:15:38,163 [INFO] Prompt: 10631 chars
+2026-05-19 20:15:38,163 [INFO] Calling Groq API...
+2026-05-19 20:15:45,317 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-19 20:15:45,331 [INFO] ✓ Groq API success
+2026-05-19 20:15:45,331 [INFO] Analysis: 6272 chars
+2026-05-19 20:15:45,332 [INFO] Saved TXT → data/analysis/ai_analysis_report.txt
+2026-05-19 20:15:45,333 [INFO] Saved JSON → data/analysis/ai_analysis_report.json
+2026-05-19 20:15:45,333 [INFO] Done!
+
+2026-05-19 20:16:35,658 [INFO] ============================================================
+2026-05-19 20:16:35,659 [INFO] FinAgent — AI Portfolio Advisor (Investment Intelligence)
+2026-05-19 20:16:35,659 [INFO] Tickers: ['WMT', 'TGT', 'COST']
+2026-05-19 20:16:35,659 [INFO] ============================================================
+2026-05-19 20:16:35,662 [INFO] ✓ Loaded WMT
+2026-05-19 20:16:35,663 [INFO] ✓ Loaded TGT
+2026-05-19 20:16:35,664 [INFO] ✓ Loaded COST
+2026-05-19 20:16:35,667 [INFO] ✓ WMT: phase=Defensive Accumulation | role=Defensive Hedge | risk=Medium
+2026-05-19 20:16:35,668 [INFO] ✓ TGT: phase=Post-Crash Recovery | role=Growth Driver | risk=High
+2026-05-19 20:16:35,669 [INFO] ✓ COST: phase=Mature Stable Trend | role=Balanced Core | risk=Low
+2026-05-19 20:16:35,670 [INFO] ✓ Correlations: {'WMT_vs_TGT': 0.2582, 'WMT_vs_COST': 0.5625, 'TGT_vs_COST': 0.1904}
+2026-05-19 20:16:35,670 [INFO] Prompt: 10631 chars
+2026-05-19 20:16:35,670 [INFO] Calling Groq API...
+2026-05-19 20:16:43,384 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-05-19 20:16:43,402 [INFO] ✓ Groq API success
+2026-05-19 20:16:43,402 [INFO] Analysis: 7370 chars
+2026-05-19 20:16:43,403 [INFO] Saved TXT → data/analysis/ai_analysis_report.txt
+2026-05-19 20:16:43,404 [INFO] Saved JSON → data/analysis/ai_analysis_report.json
+2026-05-19 20:16:43,404 [INFO] Done!
+
