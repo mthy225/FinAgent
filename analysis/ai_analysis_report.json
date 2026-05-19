@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-18 09:45:06",
+  "generated_at": "2026-05-19 07:51:07",
   "model_used": "groq/llama-3.3-70b-versatile",
   "input_data": [
     {
@@ -13,7 +13,7 @@
       "ma_gap_pct": 2.321,
       "price_slope_30d": 0.2835,
       "avg_daily_return": 0.001379,
-      "std_daily_return": 1.4766,
+      "std_daily_return": 0.013289,
       "monthly_var_95": -0.096069,
       "max_drawdown_pct": -21.93,
       "max_consecutive_neg_days": 10,
@@ -21,8 +21,9 @@
       "volatility_change_pct": -0.34,
       "avg_volatility_30d_pct": 1.5043,
       "positive_days_30d": 19,
-      "negative_days_30d": 10,
-      "win_rate_pct": 65.5,
+      "negative_days_30d": 11,
+      "win_rate_pct": 63.3,
+      "std_daily_return_pct": 1.4766,
       "sharpe_ratio": 0.1511,
       "outlier_count": 0,
       "best_day": "2026-04-08",
@@ -30,10 +31,10 @@
       "worst_day": "2026-04-07",
       "worst_day_return_pct": -3.39,
       "stock_phase": "Defensive Accumulation",
-      "phase_reason": "Volatility is decreasing, win rate is 65.5%, max drawdown only -21.93% — institutional money is quietly accumulating. This stock moves slowly but reliably upward.",
+      "phase_reason": "Volatility is decreasing, win rate is 63.3%, max drawdown only -21.93% — institutional money is quietly accumulating. This stock moves slowly but reliably upward.",
       "risk_level": "Medium",
       "portfolio_role": "Defensive Hedge",
-      "role_reason": "Low max drawdown (-21.93%), win rate 65.5%, and declining volatility make this the portfolio's shock absorber."
+      "role_reason": "Low max drawdown (-21.93%), win rate 63.3%, and declining volatility make this the portfolio's shock absorber."
     },
     {
       "ticker": "TGT",
@@ -46,7 +47,7 @@
       "ma_gap_pct": 3.201,
       "price_slope_30d": 0.4715,
       "avg_daily_return": 0.000137,
-      "std_daily_return": 1.6061,
+      "std_daily_return": 0.021731,
       "monthly_var_95": -0.167026,
       "max_drawdown_pct": -49.78,
       "max_consecutive_neg_days": 9,
@@ -54,8 +55,9 @@
       "volatility_change_pct": -0.5293,
       "avg_volatility_30d_pct": 1.7104,
       "positive_days_30d": 18,
-      "negative_days_30d": 11,
-      "win_rate_pct": 62.1,
+      "negative_days_30d": 12,
+      "win_rate_pct": 60.0,
+      "std_daily_return_pct": 1.6061,
       "sharpe_ratio": 0.2492,
       "outlier_count": 0,
       "best_day": "2026-04-17",
@@ -79,7 +81,7 @@
       "ma_gap_pct": 0.564,
       "price_slope_30d": 0.5187,
       "avg_daily_return": 0.00105,
-      "std_daily_return": 1.1178,
+      "std_daily_return": 0.012335,
       "monthly_var_95": -0.090251,
       "max_drawdown_pct": -20.74,
       "max_consecutive_neg_days": 7,
@@ -89,6 +91,7 @@
       "positive_days_30d": 18,
       "negative_days_30d": 12,
       "win_rate_pct": 60.0,
+      "std_daily_return_pct": 1.1178,
       "sharpe_ratio": 0.0762,
       "outlier_count": 0,
       "best_day": "2026-04-02",
@@ -107,5 +110,52 @@
     "WMT_vs_COST": 0.5625,
     "TGT_vs_COST": 0.1904
   },
-  "analysis": "### SECTION 1: STOCK PHASE DIAGNOSIS — \"What is each stock actually doing right now?\"\n\nBased on the combination of metrics, we can diagnose the current phase of each stock. \n\nFor WMT, the current phase is Defensive Accumulation. The combination of a moderate 30-day return (5.7%), a high win rate (65.5%), and a decreasing volatility trend (-0.34%) suggests that institutional investors are quietly accumulating this stock. The price slope (0.2835) and MA gap (2.321%) also indicate a slow and steady upward movement.\n\nFor TGT, the current phase is Post-Crash Recovery. The high 90-day return (32.11%) and MA gap (3.201%) suggest that institutional investors are re-entering the stock after a historic collapse (-49.78% max drawdown). However, this momentum is fragile and may reverse sharply if sentiment shifts.\n\nFor COST, the current phase is Mature Stable Trend. The low volatility (1.0844%), consistent slope (0.5187), and modest 30-day return (2.29%) indicate a steady compounder. This stock delivers steady returns without drama, making it a reliable but unexciting investment.\n\n### SECTION 2 — RISK READING (STRICT INSTRUCTION)\n\nTo estimate the 1-month worst-case loss, we use the provided monthly_var_95 metric. \n\nFor WMT, the monthly_var_95 is -0.096069, which means the estimated 1-month worst-case loss is -0.096069 × $10,000 = -$960.69.\n\nFor TGT, the monthly_var_95 is -0.167026, which means the estimated 1-month worst-case loss is -0.167026 × $10,000 = -$1,670.26.\n\nFor COST, the monthly_var_95 is -0.090251, which means the estimated 1-month worst-case loss is -0.090251 × $10,000 = -$902.51.\n\nWe also consider the std_daily_return and max_drawdown_pct to assess the risk. \n\nThe correct order of std_daily_return from low to high is: COST (1.1178) < WMT (1.4766) < TGT (1.6061).\n\n### SECTION 3: CONSISTENCY READING — \"Steady grower or lucky gambler?\"\n\nTo evaluate consistency, we combine win_rate_pct, std_daily_return, and return_30d. \n\nThe correct order of win_rate_pct from high to low is: WMT (65.5%) > TGT (62.1%) > COST (60.0%).\n\nThe correct order of std_daily_return from low to high is: COST (1.1178) < WMT (1.4766) < TGT (1.6061).\n\nThe correct order of return_30d from high to low is: TGT (11.88%) > WMT (5.7%) > COST (2.29%).\n\nBased on these metrics, WMT is the most consistent grower, followed by TGT and then COST. WMT's high win rate and moderate return make it a reliable investment, while TGT's high return and high std_daily_return make it a riskier but potentially more rewarding investment. COST is a steady but unexciting investment with low volatility and modest returns.\n\n### SECTION 4: CORRELATION — \"Are you actually diversifying or just doubling down?\"\n\nThe correlation between WMT and TGT is 0.2582, which means they have a relatively low correlation. This suggests that holding both stocks can provide some diversification benefits.\n\nThe correlation between WMT and COST is 0.5625, which means they have a moderate correlation. This suggests that holding both stocks may not provide as much diversification benefit as holding WMT and TGT.\n\nThe correlation between TGT and COST is 0.1904, which means they have a relatively low correlation. This suggests that holding both stocks can provide some diversification benefits.\n\nOverall, holding all three stocks can provide some diversification benefits, but the correlation between WMT and COST is relatively high. To maximize diversification, it may be beneficial to concentrate on WMT and TGT, or to add other stocks with low correlation to the portfolio.\n\n### SECTION 5: MACRO SENSITIVITY — \"Who survives when things get tough?\"\n\nBased on the volatility pattern and drawdown history, WMT is the most defensive stock when the macro environment deteriorates. Its low volatility and high win rate make it a reliable investment during uncertain times.\n\nTGT is the most cyclical stock, moving sharply with consumer sentiment. Its high return and high std_daily_return make it a riskier investment that may be more sensitive to changes in the macro environment.\n\nIf CPI rises, WMT is likely to hold up best due to its defensive nature and low volatility. If consumer spending weakens, TGT is likely to get hit hardest due to its cyclical nature and high sensitivity to consumer sentiment.\n\n### SECTION 6: PORTFOLIO ROLE TABLE\n\n| Ticker | Phase | Portfolio Role | Risk Level | Key Insight (1 sentence, cite 2 numbers) |\n|--------|-------|----------------|------------|------------------------------------------|\n| WMT    | Defensive Accumulation | Defensive Hedge | Medium | WMT's high win rate (65.5%) and low max drawdown (-21.93%) make it a reliable investment. |\n| TGT    | Post-Crash Recovery | Growth Driver | High | TGT's high 90-day return (32.11%) and high MA gap (3.201%) make it a potentially rewarding but risky investment. |\n| COST   | Mature Stable Trend | Balanced Core | Low | COST's low volatility (1.0844%) and consistent slope (0.5187) make it a steady but unexciting investment. |\n\nThese three roles complement each other in a portfolio by providing a balance of defense, growth, and stability. WMT's defensive nature can help mitigate losses during downturns, while TGT's growth potential can provide a boost during upswings. COST's steady returns can provide a foundation for the portfolio, reducing overall volatility.\n\n### SECTION 7: ALLOCATION FOR 3 INVESTOR PROFILES ($10,000)\n\n**Profile A — Conservative**\n- Allocation: WMT 60% = $6,000, TGT 10% = $1,000, COST 30% = $3,000\n- Key metrics: max_drawdown_pct, win_rate_pct, volatility_trend, sharpe_ratio\n- Bull case: expected portfolio value = $10,000 + (0.057 × $6,000 + 0.1188 × $1,000 + 0.0229 × $3,000) = $10,000 + $341.4 + $118.8 + $68.7 = $10,529\n- Bear case: expected portfolio value = $10,000 + (-0.096069 × $6,000 - 0.167026 × $1,000 - 0.090251 × $3,000) = $10,000 - $576.41 - $167.03 - $270.75 = $9,986\n- One-line verdict: This allocation prioritizes capital preservation and sleep-at-night comfort, with a focus on WMT's defensive nature and COST's steady returns.\n\n**Profile B — Balanced**\n- Allocation: WMT 40% = $4,000, TGT 30% = $3,000, COST 30% = $3,000\n- Key metrics: return_30d, sharpe_ratio, correlation\n- Bull case: expected portfolio value = $10,000 + (0.057 × $4,000 + 0.1188 × $3,000 + 0.0229 × $3,000) = $10,000 + $228 + $356.4 + $68.7 = $10,653\n- Bear case: expected portfolio value = $10,000 + (-0.096069 × $4,000 - 0.167026 × $3,000 - 0.090251 × $3,000) = $10,000 - $384.28 - $501.78 - $270.75 = $9,843\n- One-line verdict: This allocation balances growth and stability, with a focus on WMT's reliability, TGT's growth potential, and COST's steady returns.\n\n**Profile C — Aggressive**\n- Allocation: WMT 10% = $1,000, TGT 60% = $6,000, COST 30% = $3,000\n- Key metrics: return_7d, return_90d, ma_gap_pct, stock_phase\n- Bull case: expected portfolio value = $10,000 + (0.057 × $1,000 + 0.1188 × $6,000 + 0.0229 × $3,000) = $10,000 + $57 + $713 + $68.7 = $10,839\n- Bear case: expected portfolio value = $10,000 + (-0.096069 × $1,000 - 0.167026 × $6,000 - 0.090251 × $3,000) = $10,000 - $96.07 - $1,002.16 - $270.75 = $9,631\n- One-line verdict: This allocation prioritizes growth and is willing to accept higher risk, with a focus on TGT's high return potential and COST's steady returns.\n\nThe single most important risk each profile must accept is the potential for significant losses if the macro environment deteriorates or if the stocks' trends reverse."
+  "news_sentiment": {
+    "WMT": {
+      "ticker": "WMT",
+      "total_articles": 51,
+      "positive": 10,
+      "negative": 4,
+      "neutral": 37,
+      "sentiment_score": 0.118,
+      "top_headlines": [
+        "Wall Street Week Ahead: Nvidia, retailer reports to shed light on AI boom, consumer spending",
+        "Trump tariff refund checks begin disbursing this week — who qualifies and why are millions excluded from payouts?",
+        "Jim Cramer says stocks like McDonald’s, Walmart that should be soaring in tough times are instead getting ‘slaughtered’",
+        "Retail sales growth slowed in April from March as higher gas cost leaves less room for nonessentials",
+        "Retail sales growth slowed in April as Iran war fuels higher gas prices"
+      ]
+    },
+    "TGT": {
+      "ticker": "TGT",
+      "total_articles": 254,
+      "positive": 59,
+      "negative": 30,
+      "neutral": 165,
+      "sentiment_score": 0.114,
+      "top_headlines": [
+        "Global Inventory Race Intensifies in Shadow of the Iran War",
+        "Fishing for higher yields? G-Secs, SDLs, FRSBs, corporate bonds are good bets",
+        "High Liner Foods Q1 Earnings Call Highlights",
+        "Wall Street Week Ahead: Nvidia, retailer reports to shed light on AI boom, consumer spending",
+        "Prediction. Kevin Warsh’s Fed View Could Unlock These 4 AI Stocks Under $10 That the Market Has Left for Dead"
+      ]
+    },
+    "COST": {
+      "ticker": "COST",
+      "total_articles": 22,
+      "positive": 4,
+      "negative": 2,
+      "neutral": 16,
+      "sentiment_score": 0.091,
+      "top_headlines": [
+        "Costco just got its dream economy",
+        "Trump tariff refund checks begin disbursing this week — who qualifies and why are millions excluded from payouts?",
+        "How to save on gas: These memberships, credit cards and driving habits cut costs",
+        "Budget-conscious shoppers are feeding a boom in discount groceries",
+        "Walmart vs Costco 2026: Which Retail Giant Is the Better Buy for Investors Now"
+      ]
+    }
+  },
+  "analysis": "### SECTION 1: STOCK PHASE DIAGNOSIS\n\n**WMT**: WMT is currently in the \"Defensive Accumulation\" phase, characterized by a 7-day return of 1.95%, a 30-day return of 5.7%, and a 90-day return of 16.65%. The moving average gap percentage (ma_gap_pct) is 2.321%, indicating a slight upward momentum. The price slope over the last 30 days (price_slope_30d) is 0.2835, suggesting a steady but slow growth. The recent news sentiment score of 0.118 confirms the bullish behavior, with headlines like \"Wall Street Week Ahead: Nvidia, retailer reports to shed light on AI boom, consumer spending\" supporting the positive outlook. However, a headline like \"Jim Cramer says stocks like McDonald’s, Walmart that should be soaring in tough times are instead getting ‘slaughtered’\" flags a potential divergence risk.\n\n**TGT**: TGT is in the \"Post-Crash Recovery\" phase, with a 7-day return of 2.4%, a 30-day return of 11.88%, and a 90-day return of 32.11%. The ma_gap_pct is 3.201%, indicating a strong recovery momentum. The price_slope_30d is 0.4715, suggesting a moderate growth. The news sentiment score of 0.114 confirms the bullish behavior, with headlines like \"Global Inventory Race Intensifies in Shadow of the Iran War\" supporting the positive outlook. However, the high max_drawdown_pct of -49.78% indicates that this recovery might be structural rather than organic.\n\n**COST**: COST is in the \"Mature Stable Trend\" phase, characterized by a 7-day return of 0.32%, a 30-day return of 2.29%, and a 90-day return of 14.34%. The ma_gap_pct is 0.564%, indicating a stable momentum. The price_slope_30d is 0.5187, suggesting a steady growth. The news sentiment score of 0.091 confirms the stable behavior, with headlines like \"Costco just got its dream economy\" supporting the positive outlook.\n\n### SECTION 2: RISK READING\n\n**WMT**: At 95% confidence, a $10,000 investment in WMT faces an estimated 1-month loss of $960.69 (monthly_var_95 × 10000). The std_daily_return of 1.4766% and max_drawdown_pct of -21.93% indicate a moderate risk level. The recent news does not add any new risk factors.\n\n**TGT**: At 95% confidence, a $10,000 investment in TGT faces an estimated 1-month loss of $1670.26 (monthly_var_95 × 10000). The std_daily_return of 1.6061% and max_drawdown_pct of -49.78% indicate a high risk level. The recent news on the Iran war and global inventory race may increase the risk level.\n\n**COST**: At 95% confidence, a $10,000 investment in COST faces an estimated 1-month loss of $902.51 (monthly_var_95 × 10000). The std_daily_return of 1.1178% and max_drawdown_pct of -20.74% indicate a low risk level. The recent news on the dream economy for Costco supports the stable outlook.\n\n### SECTION 3: CONSISTENCY READING\n\nBased on the precomputed rankings, the consistency reading is as follows:\n1. WMT (win rate: 63.3%, std: 1.4766%, return: 5.7%) - consistent grower\n2. COST (win rate: 60.0%, std: 1.1178%, return: 2.29%) - consistent stagnator\n3. TGT (win rate: 60.0%, std: 1.6061%, return: 11.88%) - lucky gambler\n\nThe news flow supports the consistency narrative for WMT and COST, while TGT's news sentiment indicates a potential divergence risk.\n\n### SECTION 4: CORRELATION\n\nThe correlation matrix shows the following relationships:\n- WMT vs TGT (0.2582): moderate positive correlation, indicating some diversification benefit\n- WMT vs COST (0.5625): strong positive correlation, indicating limited diversification benefit\n- TGT vs COST (0.1904): weak positive correlation, indicating significant diversification benefit\n\nThe news on the retail sector does not indicate any sector-wide event that could temporarily increase correlation.\n\n### SECTION 5: MACRO SENSITIVITY\n\nBased on the numbers, WMT is the most defensive ticker, with a low std_daily_return and a moderate return. TGT is the most cyclical, with a high std_daily_return and a high return. COST is balanced, with a low std_daily_return and a moderate return.\n\nIf CPI rises, WMT is likely to hold up best due to its defensive nature. If consumer spending weakens, TGT is likely to get hit hardest due to its cyclical nature.\n\nThe news sentiment indicates a bullish macro environment for retail, with headlines like \"Wall Street Week Ahead: Nvidia, retailer reports to shed light on AI boom, consumer spending\" supporting the positive outlook.\n\n### SECTION 6: PORTFOLIO ROLE TABLE\n\n| Ticker | Phase | Portfolio Role | Risk Level | Key Insight (cite 2 numbers + 1 news signal) |\n|--------|-------|----------------|------------|----------------------------------------------|\n| WMT    | Defensive Accumulation | Defensive Hedge | Medium | win rate: 63.3%, return: 5.7%, \"Wall Street Week Ahead: Nvidia, retailer reports to shed light on AI boom, consumer spending\" |\n| TGT    | Post-Crash Recovery | Growth Driver | High | return: 11.88%, max_drawdown_pct: -49.78%, \"Global Inventory Race Intensifies in Shadow of the Iran War\" |\n| COST   | Mature Stable Trend | Balanced Core | Low | std_daily_return: 1.1178%, return: 2.29%, \"Costco just got its dream economy\" |\n\nThe three roles complement each other, with WMT providing a defensive hedge, TGT driving growth, and COST offering a balanced core. The news context supports this allocation, with WMT and COST benefiting from a stable retail environment and TGT recovering from a previous crash.\n\n### SECTION 7: ALLOCATION FOR 3 INVESTOR PROFILES ($10,000)\n\n**Profile A — Conservative**\n- Allocation: WMT 60% = $6000, TGT 20% = $2000, COST 20% = $2000\n- Bull case: $10,000 + (0.6 × $6000 × 5.7/100) + (0.2 × $2000 × 11.88/100) + (0.2 × $2000 × 2.29/100) = $10,000 + $342 + $237.6 + $91.8 = $10,671.4\n- Bear case: $10,000 + (0.6 × $6000 × -0.096069) + (0.2 × $2000 × -0.167026) + (0.2 × $2000 × -0.090251) = $10,000 - $576.41 - $66.81 - $36.10 = $9,316.68\n- News consideration: the current news flow supports the allocation, with WMT and COST benefiting from a stable retail environment and TGT recovering from a previous crash.\n- One-line verdict: a conservative investor should allocate 60% to WMT, 20% to TGT, and 20% to COST, expecting a moderate return with low risk.\n\n**Profile B — Balanced**\n- Allocation: WMT 40% = $4000, TGT 30% = $3000, COST 30% = $3000\n- Bull case: $10,000 + (0.4 × $4000 × 5.7/100) + (0.3 × $3000 × 11.88/100) + (0.3 × $3000 × 2.29/100) = $10,000 + $228 + $356.4 + $137.7 = $10,721.1\n- Bear case: $10,000 + (0.4 × $4000 × -0.096069) + (0.3 × $3000 × -0.167026) + (0.3 × $3000 × -0.090251) = $10,000 - $384.92 - $150.38 - $90.38 = $9,374.32\n- News consideration: the current news flow supports the allocation, with WMT and COST benefiting from a stable retail environment and TGT recovering from a previous crash.\n- One-line verdict: a balanced investor should allocate 40% to WMT, 30% to TGT, and 30% to COST, expecting a moderate return with moderate risk.\n\n**Profile C — Aggressive**\n- Allocation: WMT 20% = $2000, TGT 50% = $5000, COST 30% = $3000\n- Bull case: $10,000 + (0.2 × $2000 × 5.7/100) + (0.5 × $5000 × 11.88/100) + (0.3 × $3000 × 2.29/100) = $10,000 + $114 + $594 + $137.7 = $10,845.7\n- Bear case: $10,000 + (0.2 × $2000 × -0.096069) + (0.5 × $5000 × -0.167026) + (0.3 × $3000 × -0.090251) = $10,000 - $38.41 - $417.65 - $90.38 = $9,453.56\n- News consideration: the current news flow supports the allocation, with TGT recovering from a previous crash and WMT and COST benefiting from a stable retail environment.\n- One-line verdict: an aggressive investor should allocate 20% to WMT, 50% to TGT, and 30% to COST, expecting a high return with high risk.\n\nThe single most important risk each profile must accept is the potential for a market downturn, which could result in significant losses for all three profiles."
 }
